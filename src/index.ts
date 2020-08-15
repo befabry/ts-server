@@ -1,8 +1,10 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import cookieSession from "cookie-session";
 
-import { router } from "./Routes/loginRoutes";
+import { router } from "./routes/loginRoutes";
+import "./controllers/LoginController";
+import { AppRouter } from "./AppRouter";
 
 const app = express();
 const port = 3000;
@@ -12,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Must be used afte the body parser
 app.use(cookieSession({ keys: ["asdf"] }));
 app.use(router);
+app.use(AppRouter.getInstance());
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
